@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from chat_app.views import chat_room
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', include('chat_app.urls')),  # include URLs from the 'chat_app' application
+    path('', include('chat_app.urls')),  # include URLs from the 'chat_app' application
 ]
