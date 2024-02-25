@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(ugm-lt4mhsohm%699j)4v%lyabcx3!ou3kcr(plcbcij#d=%a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chat-django-1277ed8b42da.herokuapp.com']
+ALLOWED_HOSTS = ['chat-django-1277ed8b42da.herokuapp.com', '127.0.0.1']
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
