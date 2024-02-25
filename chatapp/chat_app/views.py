@@ -10,7 +10,10 @@ def home(request):
 
 def room(request, room):
     username = request.GET.get('username')
-    room_details = ChatRoom.objects.get(name=room)
+    try:
+        room_details = ChatRoom.objects.get(name=room)
+    except ChatRoom.DoesNotExist:
+        room_details = None
     return render(request, 'room.html', {
         'username': username,
         'room': room,
@@ -43,7 +46,7 @@ def getMessages(request, room):
     try:
         room_details = ChatRoom.objects.get(name=room)
     except ChatRoom.DoesNotExist:
-        raise Http404("Chat room does not exist")
+        room_details = None
 
     message = Message.objects.filter(room = room_details.id).order_by('date')
     return JsonResponse({"message":list(message.values())})
