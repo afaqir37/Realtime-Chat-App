@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.utils import timezone
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=100)
@@ -11,13 +11,13 @@ class ChatRoom(models.Model):
         return self.name
     
 class Message(models.Model):
-    room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    value = models.CharField(max_length=1000000, null=True, blank=True)
+    date = models.DateTimeField(default=timezone.now , blank = True)
+    user = models.CharField(max_length=1000000, null=True, blank=True)
+    room = models.CharField(max_length=1000000, null=True, blank=True)
 
     class Meta:
             app_label = 'chatapp'
 
     def __str__(self):
-        return self.content
+        return self.value

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from chat_app.models import ChatRoom, Message
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 import logging
 
 logger = logging.getLogger(__name__)
@@ -40,6 +40,10 @@ def send(request):
 
 
 def getMessages(request, room):
-    room_details = ChatRoom.objects.get(name=room)
-    message = Message.objects.filter(room = room_details.id).order_by('timestamp')
+    try:
+        room_details = ChatRoom.objects.get(name=room)
+    except ChatRoom.DoesNotExist:
+        raise Http404("Chat room does not exist")
+
+    message = Message.objects.filter(room = room_details.id).order_by('date')
     return JsonResponse({"message":list(message.values())})
